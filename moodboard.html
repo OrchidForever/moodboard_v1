@@ -1,0 +1,120 @@
+<!doctype html>
+    <head>
+        <script
+            src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+            crossorigin="anonymous">
+        </script>
+        <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+        <link href="https://fonts.googleapis.com/css?family=Dancing+Script|Open+Sans&display=swap" rel="stylesheet">
+        <style>
+            * {
+                overflow: hidden;
+            }
+            body {
+                background-color: black;
+            }
+            .large_photo {
+                height: calc(125px * 3 + 10px);
+                width: calc(125px * 2 + 5px);
+                background-color:beige;
+                background-size: cover;
+                background-position: center;
+            }
+            .wide_photo {
+                height: calc(125px * 2 + 5px);
+                width: calc(125px * 3 + 10px);
+                background-color:beige;
+            }
+            .square_photo {
+                height: calc(125px * 2 + 5px);
+                width:calc(125px * 2 + 5px);
+                vertical-align:top;
+                background-size: cover;
+                background-position: center;
+            }
+            .color {
+                width: 125px;
+                height: 125px;
+            }
+            .item {
+                margin-bottom: 5px;
+            }
+            #container {
+                width:800px;
+                margin: 0 auto;
+                padding-top: 5px;
+            }
+            span {
+                font-family: 'Dancing Script', cursive;
+                font-size: xx-large;
+                line-height: 40px;
+            }
+            .other {
+                font-family: 'Open Sans', sans-serif;
+                text-align: center; 
+                color: white;
+            }
+            .text img {
+                vertical-align: bottom;
+            }
+        </style>
+        <script>
+            const rec_photos = ["photos/mood_board/cards.jpg",
+                                "photos/mood_board/something.jpg" ]; /* The first photo */
+            const square_photos = ["photos/mood_board/card.jpg",
+                                "photos/mood_board/fake.jpg",
+                                "photos/mood_board/glow.jpg",
+                                "photos/mood_board/relax.jpg",
+                                "photos/mood_board/stars.png",
+                                "photos/mood_board/sweater.jpg"]; /* The rest of the photos */
+            const acceptable_colors = ["#ADD8E6", 
+                                        "#5F1505 ", 
+                                        "#ffb6c1", 
+                                        "#05575F ", 
+                                        "#fff", 
+                                        "purple"]; /* The colors for the squares at least 5 */
+        </script>
+    </head>
+    <body>
+        <div id="container">
+            <div class="item large_photo"></div>
+            <div class="item square_photo square_photo_1"></div>
+            <div class="item square_photo square_photo_2"></div>
+            <div class="item color color_1"></div>
+            <div class="item color color_2"></div>
+            <div class="item color color_3"></div>
+            <div class="item color color_4"></div>
+            <div class="item square_photo text">
+                <p class="other">Featuring the Great<br /><span>Zachary Zatara</span><br />Coming Soon</p>
+                <img src="photos/mood_board/bunny copy.png" />
+            </div>
+            <div class="item square_photo square_photo_3"></div>
+            <div class="item square_photo square_photo_4"></div>
+        </div>
+
+        <script>
+            $(document).ready(function(){
+                let random;
+                let random_a = [];
+                for(var i = 1; i<5;i++){
+                    $(".color_"+i).css("background-color", acceptable_colors[Math.floor(Math.random() * acceptable_colors.length)]);
+                    random = Math.floor(Math.random() * square_photos.length);
+                    while(random_a.indexOf(random) > -1){
+                        random = Math.floor(Math.random() * square_photos.length);
+                    }
+                    random_a.push(random);
+                    $(".square_photo_"+i).css("background-image", "url("+square_photos[random]+")");
+                }
+                $(".large_photo").css("background-image", "url("+rec_photos[Math.floor(Math.random() * rec_photos.length)]+")");
+                $('#container').masonry({
+                // options
+                    itemSelector: '.item',
+                    columnWidth: 125,
+                    gutter: 5
+                });
+            });
+        </script>
+    </body>
+
+</html>
